@@ -1,10 +1,15 @@
+/*
+ node ./sync-activities.js 
+*/
+require('dotenv').config();
 const Tng = require("./libs/Tangerine");
-const ARGS = process.argv.slice(2);
-const FROM_API = "https://edelvivesdigitalplus.com/api/";
-const FROM_DP = "6d755590-9f7c-11ec-82ca-b9c84ea12c15";
-const TO_API = "https://edelvivesdigital-dev.oneclickaws.tk/api/";
-const USERNAME = "admin.alejandro.micheloud@oneclick.es";
-const PASSWORD = ARGS[0] || "";
+
+const FROM_API = process.env.FROM_API;
+const FROM_DP = process.env.FROM_DP;
+const TO_API = process.env.TO_API;
+const USERNAME = process.env.ADMIN_USER;
+const PASSWORD = process.env.PASSWORD;
+
 let fromJwt = "";
 let toJwt = "";
 
@@ -56,8 +61,7 @@ function readBook() {
         const lessonData = unitData.items[pointerLessons];
 
         console.log(
-          `Unit ${pointerUnits + 1} of ${amountUnits} / Lesson ${
-            pointerLessons + 1
+          `Unit ${pointerUnits + 1} of ${amountUnits} / Lesson ${pointerLessons + 1
           } of ${amountLessons} (${lessonData.lesson_guid}) ...`
         );
 
@@ -132,8 +136,7 @@ function copyActivities(lemonadeContents) {
         }
       }
       console.log(
-        `Doing copy of activity ${
-          pointer + 1
+        `Doing copy of activity ${pointer + 1
         } of ${amount} ... Lemonade exists? ${exists}`
       );
       if (exists) {
@@ -167,4 +170,4 @@ function copyActivities(lemonadeContents) {
   next();
 }
 
-function getLemonadeType(type) {}
+function getLemonadeType(type) { }

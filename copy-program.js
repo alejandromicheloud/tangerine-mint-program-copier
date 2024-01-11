@@ -1,12 +1,22 @@
+/*
+  This program copies a program from one API to another.
+  first execute:
+    node ./sync-activities.js
+  then execute:
+    node ./copy-program.js
+*/
+
+require('dotenv').config();
 const UUID = require('uuid');
 const Tng = require("./libs/Tangerine");
-const ARGS = process.argv.slice(2);
-const FROM_API = "https://edelvivesdigitalplus.com/api/";
-const FROM_DP = "6d755590-9f7c-11ec-82ca-b9c84ea12c15";
-const TO_API = "https://edelvivesdigital-dev.oneclickaws.tk/api/";
-const TO_DP = "c5ee0280-ad1d-11ed-b820-e15e5127c0de";
-const USERNAME = "admin.alejandro.micheloud@oneclick.es";
-const PASSWORD = ARGS[0] || "";
+
+const FROM_API = process.env.FROM_API;
+const FROM_DP = process.env.FROM_DP;
+const TO_API = process.env.TO_API;
+const TO_DP = process.env.TO_DP;
+const USERNAME = process.env.ADMIN_USER;
+const PASSWORD = process.env.PASSWORD;
+
 let fromJwt = "";
 let toJwt = "";
 
@@ -68,7 +78,7 @@ function doCopy() {
           }
           const lessonData = unitData.items[pointerLessons];
 
-          console.log(`... procesing unit ${pointerUnits + 1} of ${amountUnits} / Lesson ${pointerLessons+1} of ${amountLessons} ...`);
+          console.log(`... procesing unit ${pointerUnits + 1} of ${amountUnits} / Lesson ${pointerLessons + 1} of ${amountLessons} ...`);
 
           if (lessonData.lesson_type === "game") {
             pointerLessons++;
@@ -86,7 +96,7 @@ function doCopy() {
                 post.guid = UUID.v1();
                 post.items.map((item) => {
                   item.guid = UUID.v1();
-                  if(item.data && item.data.id){
+                  if (item.data && item.data.id) {
                     item.data.id = item.guid;
                   }
                   item.hasChangeMode = true;
@@ -137,4 +147,4 @@ function doCopy() {
   });
 }
 
-function copyLemonades() {}
+function copyLemonades() { }
